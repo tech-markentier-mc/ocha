@@ -1,3 +1,48 @@
+/* Small modern reset; unlayered component styles take precedence.
+   Adapted from https://www.joshwcomeau.com/css/custom-css-reset/ */
+@layer reset {
+    *, *::before, *::after { box-sizing: border-box; }
+
+    /* Keep native dialog centering and list indentation intact. */
+    body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd { margin: 0; }
+    body { line-height: 1.5; }
+
+    img, picture, video, canvas, svg { display: block; max-width: 100%; }
+    img, video { height: auto; }
+
+    input, button, textarea, select { font: inherit; }
+    p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
+}
+
+/* Haiku-only subset from Google Fonts; license: assets/fonts/OFL-Yuji.txt.
+   Regenerate this subset if the poem gains new characters. */
+@font-face {
+    font-family: "Yuji Mai";
+    src: url("assets/fonts/yuji-mai-haiku.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    unicode-range: U+20, U+304F, U+3066, U+306F, U+3084, U+308B-308C, U+4E00, U+4EBA, U+65E5, U+6765, U+6BCE, U+8336, U+8776;
+}
+
+@font-face {
+    font-family: "Yuji Boku";
+    src: url("assets/fonts/yuji-boku-haiku.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    unicode-range: U+20, U+304F, U+3066, U+306F, U+3084, U+308B-308C, U+4E00, U+4EBA, U+65E5, U+6765, U+6BCE, U+8336, U+8776;
+}
+
+@font-face {
+    font-family: "Yuji Syuku";
+    src: url("assets/fonts/yuji-syuku-haiku.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    unicode-range: U+20, U+304F, U+3066, U+306F, U+3084, U+308B-308C, U+4E00, U+4EBA, U+65E5, U+6765, U+6BCE, U+8336, U+8776;
+}
+
 :root {
     color-scheme: light;
     --paper: #f4f1e7;
@@ -5,9 +50,7 @@
     --green: #73815a;
 }
 
-* { box-sizing: border-box; }
 body {
-    margin: 0;
     background: var(--paper);
     color: var(--ink);
     font-family: "Segoe UI", Helvetica, Arial, sans-serif;
@@ -35,12 +78,29 @@ body {
 .intro { position: relative; z-index: 1; }
 .tea-logo { display: inline-block; width: 42px; height: 42px; margin-left: 12px; vertical-align: baseline; }
 h1 {
+    position: relative;
+    isolation: isolate;
     margin: 20px 0 15px -8px;
     font-family: Georgia, "Times New Roman", serif;
     font-size: clamp(100px, 12vw, 174px);
     font-weight: 400;
     line-height: 1;
     letter-spacing: -.065em;
+}
+.title-ghost {
+    position: absolute;
+    z-index: -1;
+    top: -0.42em;
+    left: -0.27em;
+    color: var(--green);
+    opacity: .042;
+    font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif CJK JP", serif;
+    font-size: 1.5em;
+    letter-spacing: .1em;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    filter: blur(2px);
 }
 .subtitle { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(24px, 3vw, 33px); line-height: 1.4; }
 .tea-scene {
@@ -51,7 +111,8 @@ h1 {
     width: 100%;
     aspect-ratio: 605 / 600;
 }
-.tea-art { position: absolute; z-index: 0; width: 110%; height: 100%; top: 4%; left: -14%; }
+/* The illustration intentionally extends beyond its composition container. */
+.tea-art { position: absolute; z-index: 0; width: 110%; max-width: none; height: 100%; top: 4%; left: -14%; }
 .poem {
     position: absolute;
     z-index: 1;
@@ -60,7 +121,7 @@ h1 {
     margin: 0;
     writing-mode: vertical-rl;
     white-space: nowrap;
-    font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif CJK JP", serif;
+    font-family: "Yuji Mai", "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif CJK JP", serif;
     font-size: 5.785124cqw;
     letter-spacing: .23em;
     line-height: 1.8;
