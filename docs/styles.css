@@ -132,8 +132,20 @@ h1 {
     .hero { gap: 0; padding-block: 50px; }
 }
 @media (max-width: 600px) {
-    .wrap { width: calc(100% - 40px); }
-    .hero { grid-template-columns: 1fr; padding-block: 48px 28px; }
-    h1 { margin-left: -4px; font-size: 112px; }
-    .tea-scene { margin-top: 20px; }
+    .wrap { width: calc(100% - 48px); }
+    .hero {
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: center;
+        align-content: center;
+        gap: 40px;
+        padding-block: 72px 40px;
+    }
+    .intro { width: 100%; text-align: center; }
+    h1 { display: inline-block; margin-inline: 0; font-size: clamp(88px, 26vw, 112px); }
+    .title-ghost { left: 50%; transform: translateX(-50%); }
+    .subtitle { font-size: clamp(20px, 5.5vw, 24px); }
+    .tea-scene { width: min(100%, 420px); }
+    /* Shift artwork and verse together to center their visible bounds. */
+    .tea-art { left: 2%; }
+    .poem { right: 14%; }
 }
